@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const parser = require('body-parser');
 const sqlSetup = require('./sql-setup');
+const morgan = require('morgan');
 
 const db = mysql.createConnection({
     host     : sqlSetup.host,
@@ -17,11 +18,11 @@ db.connect((err)=>{
 
 const app = express();
 
+app.use(morgan('dev')); //log incoming requests
 app.use(parser.json());
 
 app.get("/v1/invoices",(req,res,next)=>{
     let sql = 'SELECT * FROM invoices ';
-    sql += 'ORDER BY created_at DESC ';
 
     if(req.query.invoice_number){
         sql += 'WHERE invoice_number=\'' + req.query.invoice_number + '\' ';
@@ -31,6 +32,8 @@ app.get("/v1/invoices",(req,res,next)=>{
     } else if(req.query.po_number){
         sql += 'WHERE po_number=\'' + req.query.po_number + '\' ';
     }
+
+    sql += 'ORDER BY created_at DESC ';
 
     db.query(sql,(err,result)=>{
         if(err) throw err;
@@ -52,6 +55,12 @@ app.post("/v1/invoices",(req,res,next)=>{
             if(err) throw err;
             res.send(result);
         });
+    });
+});
+
+app.use((req,res)=>{
+    res.status(404).json({
+        message: 'Invalid endpoint!'
     });
 });
 
