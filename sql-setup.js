@@ -1,7 +1,7 @@
-let username = "___YOUR_USERNAME___";
-let password = "___PASSWORD___";
+let username = "root";
+let password = "12345678";
 let host = "localhost"; 
-let database = "invoice_db";
+let database = "invoices_db";
 
 module.exports.username = username;
 module.exports.password = password; 
