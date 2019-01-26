@@ -18,7 +18,7 @@ mysql> FLUSH PRIVILEGES;
 mysql> exit
 mysql -u root -p invoices_db < invoices_dump.sql #import included dump file into new database
 ```
-The two lines above ```mysql> exit``` is to allow the API to authenticate. Replace ```'__PASSWORD__'``` with your root password.
+The two lines above `mysql> exit` is to allow the API to authenticate. Replace ```'__PASSWORD__'``` with your root password.
 
 Secondly, input your login details into the sql-setup.js file:
 ```js
@@ -32,7 +32,7 @@ npm start
 ```
 Now your server is listening on port 3000. You can make GET and POST requests to localhost:3000/v1/invoices.
 
-GET parameters:
+### GET parameters:
  - **invoice_number**: the invoice number you want to query (alphanumerial)
  - **po_number**: the product number you want to query (alphanumerical)
  - **page**: the page number you want in the query results (integer, defaults to 1)
@@ -40,7 +40,18 @@ GET parameters:
 
 Example: ```localhost:3000/v1/invoices?invoice_number=465ywghsh&page_limit=2``` would give you the first two invoice entries with invoice number of ```465ywghsh```, sorted by ```created_at``` from newest to oldest.
 
-NOTE: if no parameters are specified, all invoices in databases are matched
+### POST format:
+The API takes POST requests to localhost:3000/v1/invoices with a JSON body of the format:
+ ```js
+ {
+	"invoice_number": "sf43gfgb",
+	"po_number": "dfsg432gawe",
+	"due_date" : "2019-01-26",
+	"amount_cents" : 1999
+}
+ ```
+
+NOTE: if no parameters are specified, all invoices in databases are matched.
 
 ## Using the API with other databases
 To connect to other MySQL databases other than the included ```invoices_dump.sql```, input the database details into sql-setup.js
