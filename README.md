@@ -34,7 +34,7 @@ Now your server is listening on port 3000. You can make GET and POST requests to
 
 ### GET parameters:
  - **invoice_number**: the invoice number you want to query (alphanumerial)
- - **po_number**: the product number you want to query (alphanumerical)
+ - **po_number**: the purchase order you want to query (alphanumerical)
  - **page**: the page number you want in the query results (integer, defaults to 1)
  - **page_limit**: the number of items in one query results page (integer, defaults to 100)
 
