@@ -1,5 +1,5 @@
-let username = "root";
-let password = "12345678";
+let username = "___YOUR_USERNAME___";
+let password = "___PASSWORD___";
 let host = "localhost"; 
 let database = "invoices_db";
 

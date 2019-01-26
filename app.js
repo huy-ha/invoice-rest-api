@@ -37,10 +37,10 @@ app.get("/v1/invoices",(req,res,next)=>{
 
     db.query(sql,(err,result)=>{
         if(err) throw err;
-        let limit = req.query.page_limit || 100;
-        let start = req.query.page || 1;
-        start -= 1;        
-        res.send(result.slice(start,start+limit));
+        let limit = parseInt(req.query.page_limit) || 100;
+        let start = parseInt(req.query.page) || 1;
+        start = (start - 1) * limit;
+        res.send(result.slice(start,start + limit));
     });
 });
 
